@@ -7,15 +7,9 @@
     <style>
         *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;}
         body{max-width:900px;margin:0 auto;padding:2rem;background:#f5f5f5;}
-        h1{text-align:center;margin-bottom:1rem;color:#222;}
-        .intro{
-            background:#fff;
-            padding:1.5rem;
-            border-radius:12px;
-            margin-bottom:2rem;
-            line-height:1.7;
-            font-size:1rem;
-        }
+        h1{text-align:center;margin-bottom:2rem;color:#222;}
+        h2{margin:2.5rem 0 1rem;color:#333;border-bottom:2px solid #ddd;padding-bottom:0.5rem;}
+        .block{background:#fff;padding:1.5rem;border-radius:12px;margin-bottom:2rem;line-height:1.7;}
         .scene-card{background:#fff;padding:1.6rem;border-radius:12px;margin-bottom:2.2rem;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
         .scene-title{font-size:1.3rem;font-weight:bold;margin-bottom:1rem;}
         .media-area{width:100%;margin-bottom:1rem;}
@@ -26,15 +20,63 @@
     </style>
 </head>
 <body>
-    <h1>《老人与海》名著讲解</h1>
-    <!-- ========== 新增：项目简介（参考网页顶部的介绍段落，补齐缺失内容） ========== -->
-    <div class="intro">
-        《老人与海》是海明威的代表作，讲述古巴老渔夫桑地亚哥独自出海捕鱼，与巨大马林鱼搏斗，返航途中遭遇鲨鱼袭击的故事。
-        <br><br>
-        本项目使用AI绘图、AI视频生成工具，把小说拆分成8个连续镜头，制作成讲解短片。下方为每个镜头的素材、旁白脚本、AI画面提示词。仅第一个分镜生成完整视频。
+    <h1>《老人与海》名著讲解视频项目</h1>
+
+    <!-- 1.作品 -->
+    <h2>作品</h2>
+    <div class="block">
+        本项目基于《老人与海》原著，使用AI工具制作名著讲解短片。将小说剧情拆分为8个分镜，生成配图、提示词、旁白，仅制作第一段分镜的动态视频，用来展示名著故事片段。
     </div>
 
+    <!-- 2.分镜 -->
+    <h2>分镜</h2>
     <div id="container"></div>
+
+    <!-- 3.skill -->
+    <h2>Skill</h2>
+    <div class="block">
+        <ul style="padding-left:1.5rem;">
+            <li>AI文生图：生成分镜画面，油画质感，电影16:9画面</li>
+            <li>AI视频生成：根据图片+动态提示词生成短视频</li>
+            <li>AI配音：将旁白脚本生成人声音频，搭配视频使用</li>
+            <li>网页静态开发：HTML+JS，GitHub Pages部署在线展示</li>
+            <li>素材整理：整理提示词、脚本、图片、视频，结构化展示</li>
+        </ul>
+    </div>
+
+    <!-- 4.说明 -->
+    <h2>说明</h2>
+    <div class="block">
+        <p>本页面用于展示名著改编AI视频创作作业。页面包含全部分镜素材、旁白、正向/反向提示词、动态镜头提示词。</p>
+        <br>
+        <p>规则：仅第一个镜头生成完整视频，其余镜头只保留静态参考图。所有素材全部为AI生成，用于课程作品展示。</p>
+    </div>
+
+    <!-- 5.制作流程 -->
+    <h2>制作流程</h2>
+    <div class="block">
+        <ol style="padding-left:1.5rem;">
+            <li>阅读《老人与海》原著，拆分8个剧情分镜，撰写每个镜头旁白脚本</li>
+            <li>为每个分镜编写AI绘图正向提示词、负面提示词、动态镜头提示词</li>
+            <li>AI绘图生成每一张分镜参考图</li>
+            <li>针对第一个分镜，使用图片+动态提示词生成AI短视频</li>
+            <li>编写网页代码，搭建作品展示页面，按板块组织内容</li>
+            <li>上传图片、视频素材到GitHub仓库，配置GitHub Pages在线发布</li>
+            <li>测试网页，检查图片、视频加载，调整页面排版</li>
+        </ol>
+    </div>
+
+    <!-- 6.踩坑记录 -->
+    <h2>踩坑记录</h2>
+    <div class="block">
+        <ul style="padding-left:1.5rem;">
+            <li>GitHub Pages对中文文件名容易404，图片、视频推荐使用英文命名</li>
+            <li>MP4视频文件体积大，网页加载速度很慢，需要等待缓冲</li>
+            <li>网页排版：一开始做成左右两栏，和参考网页样式不一致，改为单栏卡片布局</li>
+            <li>视频位置：一开始视频放在图片下方，调整为视频放在图片上方</li>
+            <li>分镜结构：一开始缺少项目简介、制作流程等板块，补齐页面各个模块</li>
+        </ul>
+    </div>
 
     <script>
         function escapeHtml(str) {
@@ -127,7 +169,8 @@
             const card = document.createElement('div');
             card.className = 'scene-card';
 
-            let mediaHtml = `<div class="media-area"><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
+            let mediaHtml = '';
+            // 视频放在图片上方
             if(scene.video){
                 mediaHtml += `
                 <div class="media-area">
@@ -137,6 +180,7 @@
                     </video>
                 </div>`;
             }
+            mediaHtml += `<div class="media-area"><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
 
             card.innerHTML = `
                 <div class="scene-title">${escapeHtml(scene.title)}</div>
