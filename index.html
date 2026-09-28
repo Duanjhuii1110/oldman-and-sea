@@ -1,200 +1,580 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>老人与海 名著讲解视频项目</title>
-    <style>
-        *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;}
-        body{max-width:900px;margin:0 auto;padding:2rem;background:#f5f5f5;}
-        h1{text-align:center;margin-bottom:2rem;color:#222;}
-        h2{margin:2.5rem 0 1rem;color:#333;border-bottom:2px solid #ddd;padding-bottom:0.5rem;}
-        .block{background:#fff;padding:1.5rem;border-radius:12px;margin-bottom:2rem;line-height:1.7;}
-        .scene-card{background:#fff;padding:1.6rem;border-radius:12px;margin-bottom:2.2rem;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
-        .scene-title{font-size:1.3rem;font-weight:bold;margin-bottom:1rem;}
-        .media-area{width:100%;margin-bottom:1rem;}
-        .media-area img,.media-area video{width:100%;border-radius:8px;display:block;}
-        .text-block{margin:1rem 0;}
-        .text-block label{font-weight:bold;color:#444;display:block;margin-bottom:0.4rem;}
-        pre{white-space:pre-wrap;background:#f1f1f1;padding:0.9rem;border-radius:6px;line-height:1.6;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0e1a26">
+<title>《老人与海》名著介绍视频 · 大海之上的不屈灵魂</title>
+<style>
+  :root{
+    --bg:#0e1a26;
+    --bg-deep:#0a1420;
+    --surface:#16232f;
+    --surface-2:#1b2b39;
+    --ink:#e6e0d4;
+    --ink-2:#9fb0bd;
+    --ink-3:#6d7f8d;
+    --accent:#d9a441;
+    --accent-soft:#e8bd6a;
+    --line:#243544;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(1100px 520px at 50% -10%, rgba(217,164,65,.10), transparent 62%),
+      linear-gradient(180deg,#101d2b 0%, var(--bg) 40%, var(--bg-deep) 100%);
+    background-repeat:no-repeat;
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:rgba(217,164,65,.30);color:#fff;}
+  ::-webkit-scrollbar{width:11px;}
+  ::-webkit-scrollbar-track{background:var(--bg-deep);}
+  ::-webkit-scrollbar-thumb{background:#243544;border-radius:6px;border:2px solid var(--bg-deep);}
+  ::-webkit-scrollbar-thumb:hover{background:#33506a;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-family:Georgia,"Songti SC","Noto Serif SC",serif;font-weight:700;line-height:1.3;}
+
+  /* ---------- header ---------- */
+  .site-head{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,26,38,.86);
+    backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;}
+  .brand{font-family:Georgia,"Songti SC",serif;font-size:17px;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:.02em;}
+  .brand span{color:var(--ink-3);font-weight:400;font-size:14px;}
+  .site-head nav{display:flex;gap:26px;}
+  .site-head nav a{color:var(--ink-2);text-decoration:none;font-size:14px;transition:color .2s;}
+  .site-head nav a:hover{color:var(--accent);}
+
+  /* ---------- hero ---------- */
+  .hero{padding:88px 0 72px;}
+  .badge{
+    display:inline-block;padding:5px 15px;border:1px solid var(--line);
+    border-radius:999px;font-size:12.5px;color:var(--ink-2);background:var(--surface);
+    letter-spacing:.06em;margin-bottom:30px;
+  }
+  .hero h1{
+    font-size:clamp(34px,5.4vw,58px);letter-spacing:.01em;margin-bottom:26px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(180deg,#f0cb80,#c98f2e);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .lead{
+    font-size:16.5px;color:var(--ink-2);max-width:660px;margin-bottom:38px;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:11px;list-style:none;}
+  .chips li{
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;
+    padding:7px 17px;font-size:13.5px;color:var(--ink);
+  }
+  .chips li span{color:var(--accent);margin-right:7px;font-size:12.5px;}
+
+  /* ---------- section ---------- */
+  .section{padding:64px 0;border-top:1px solid var(--line);}
+  .sec-num{
+    display:block;font-size:12px;letter-spacing:.2em;color:var(--accent);
+    font-weight:600;margin-bottom:14px;font-family:-apple-system,sans-serif;
+  }
+  .section h2{font-size:clamp(24px,3.2vw,33px);margin-bottom:16px;}
+  .sec-lead{color:var(--ink-2);font-size:15.5px;max-width:720px;margin-bottom:44px;}
+
+  /* ---------- 01 work ---------- */
+  .work-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:44px;align-items:start;}
+  .player{
+    background:#000;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+    line-height:0;
+  }
+  .player video{width:100%;display:block;aspect-ratio:16/9;background:#000;}
+
+  .spec{border-top:1px solid var(--line);}
+  .spec-row{
+    display:grid;grid-template-columns:82px 1fr;gap:20px;
+    padding:15px 2px;border-bottom:1px solid var(--line);font-size:14.5px;
+  }
+  .spec-row dt{color:var(--ink-3);}
+  .spec-row dd{color:var(--ink);}
+  .callout{
+    margin-top:26px;background:var(--surface);border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:20px 22px;font-size:14.5px;color:var(--ink-2);
+  }
+  .callout strong{color:var(--accent-soft);}
+
+  /* ---------- 02 storyboard ---------- */
+  .flow{
+    font-size:14.5px;color:var(--ink-2);margin-bottom:34px;
+    padding:16px 20px;background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;line-height:2;
+  }
+  .flow b{color:var(--accent);font-weight:400;margin:0 4px;}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);border-color:#33506a;
+    box-shadow:0 16px 36px rgba(0,0,0,.5);
+  }
+  .card img{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;background:var(--bg-deep);}
+  .card figcaption{padding:15px 16px 18px;}
+  .card .idx{
+    display:block;font-size:12px;letter-spacing:.08em;color:var(--accent);
+    margin-bottom:8px;font-weight:600;
+  }
+  .card p{font-size:13.5px;color:var(--ink-2);line-height:1.65;}
+
+  /* ---------- prompts ---------- */
+  .prompts{border-top:1px solid var(--line);}
+  details.pmt{border-bottom:1px solid var(--line);}
+  details.pmt summary{
+    cursor:pointer;padding:17px 4px;font-size:15px;list-style:none;
+    display:flex;align-items:center;gap:14px;color:var(--ink);transition:color .2s;
+  }
+  details.pmt summary:hover{color:var(--accent-soft);}
+  details.pmt summary::-webkit-details-marker{display:none;}
+  details.pmt summary::before{
+    content:"＋";color:var(--accent);font-size:15px;
+  }
+  details.pmt[open] summary::before{content:"－";}
+  details.pmt summary .t{font-weight:600;}
+  details.pmt summary .d{color:var(--ink-3);font-size:13px;margin-left:auto;text-align:right;}
+  .pmt-body{padding:0 4px 22px;}
+  .pmt-body dl{font-size:14px;}
+  .pmt-body dt{color:var(--ink-3);font-size:12.5px;margin-top:14px;letter-spacing:.03em;}
+  .pmt-body dd{
+    color:var(--ink);margin-top:4px;background:var(--bg-deep);
+    border:1px solid var(--line);padding:10px 14px;border-radius:8px;
+  }
+
+  /* ---------- pipeline ---------- */
+  .steps{list-style:none;counter-reset:s;}
+  .steps li{
+    display:grid;grid-template-columns:36px 1fr;gap:22px;
+    padding:22px 0;border-bottom:1px solid var(--line);align-items:start;
+  }
+  .steps li::before{
+    counter-increment:s;content:counter(s,decimal-leading-zero);
+    font-family:Georgia,serif;font-size:19px;color:var(--accent);line-height:1.5;
+  }
+  .steps .h{font-weight:600;margin-bottom:5px;font-size:15.5px;color:var(--ink);}
+  .steps p{color:var(--ink-2);font-size:14.5px;}
+
+  /* ---------- notes ---------- */
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .note{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 26px;
+  }
+  .note .h{display:flex;align-items:baseline;gap:10px;font-weight:600;font-size:15.5px;margin-bottom:10px;color:var(--ink);}
+  .note .h::before{content:"✕";color:var(--accent);font-weight:700;font-size:14px;}
+  .note p{color:var(--ink-2);font-size:14px;}
+
+  /* ---------- about ---------- */
+  .about{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px 32px;}
+  .about p{color:var(--ink-2);font-size:15px;}
+  .about p + p{margin-top:16px;}
+  .about .rule{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line);font-size:14px;color:var(--ink-2);}
+  .about .rule strong{color:var(--accent-soft);}
+  .about ol{margin:18px 0 0 20px;color:var(--ink-2);font-size:14.5px;}
+  .about ol li{margin-bottom:7px;}
+
+  /* ---------- footer ---------- */
+  .site-foot{border-top:1px solid var(--line);padding:52px 0 64px;text-align:center;}
+  .site-foot .t{font-family:Georgia,"Songti SC",serif;color:var(--accent);font-size:20px;font-weight:700;margin-bottom:12px;}
+  .site-foot p{color:var(--ink-3);font-size:13.5px;}
+  .site-foot a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid currentColor;transition:color .2s;}
+  .site-foot a:hover{color:var(--accent);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:960px){
+    .work-grid{grid-template-columns:1fr;gap:34px;}
+    .cards{grid-template-columns:repeat(2,1fr);}
+    .notes{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 18px;}
+    .hero{padding:56px 0 48px;}
+    .site-head nav{gap:16px;}
+    .site-head nav a{font-size:13px;}
+    .brand span{display:none;}
+    .cards{grid-template-columns:1fr;}
+    .spec-row{grid-template-columns:70px 1fr;gap:12px;}
+    details.pmt summary .d{display:none;}
+  }
+</style>
 </head>
 <body>
-    <h1>《老人与海》名著讲解视频项目</h1>
 
-    <!-- 1.作品板块：视频放在这里 -->
-    <h2>作品</h2>
-    <div class="block">
-        <div class="media-area">
-            <video controls preload="metadata" width="100%">
-                <source src="assets/oldmansea/scene1/场景1视频.mp4" type="video/mp4">
-                <p>视频加载失败，请检查视频文件是否上传成功</p>
-            </video>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top">《老人与海》<span> · 名著介绍视频</span></a>
+    <nav>
+      <a href="#work">作品</a>
+      <a href="#storyboard">分镜</a>
+      <a href="#prompts">提示词</a>
+      <a href="#pipeline">制作流程</a>
+      <a href="#notes">踩坑记录</a>
+      <a href="#about">说明</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero wrap">
+    <span class="badge">名著介绍视频 · AI 创作作品</span>
+    <h1>一片海，一条鱼<br>和一个<span class="accent">不肯认输</span>的老人</h1>
+    <p class="lead">
+      本项目基于海明威《老人与海》原著，用 AI 工具完成从剧本到成片的全流程：
+      拆解 8 个剧情分镜，逐段生成配图、旁白与提示词，最终合成一支 68 秒的名著讲解短片。
+    </p>
+    <ul class="chips">
+      <li><span>书名</span>《老人与海》</li>
+      <li><span>画幅</span>16:9</li>
+      <li><span>时长</span>68 秒</li>
+      <li><span>分辨率</span>1920 × 1080</li>
+      <li><span>段落</span>8 段</li>
+    </ul>
+  </section>
+
+  <!-- ================= 01 WORK ================= -->
+  <section id="work" class="section">
+    <div class="wrap">
+      <span class="sec-num">01 / WORK</span>
+      <h2>作品：《老人与海：大海之上的不屈灵魂》</h2>
+      <p class="sec-lead">
+        选取原著中从开篇到结局的八个关键节点，用统一的古典油画风格串成一条完整情绪线。
+      </p>
+
+      <div class="work-grid">
+        <div class="player">
+          <video controls preload="metadata" poster="assets/images/scene01.jpg"
+                 src="assets/video/oldman-and-sea.mp4">
+            你的浏览器不支持视频播放。
+          </video>
         </div>
-        <p>本项目基于《老人与海》原著，使用AI工具制作名著讲解短片。将小说剧情拆分为8个分镜，生成配图、提示词、旁白，生成第一段分镜的动态视频，用来展示名著故事片段。</p>
+
+        <div>
+          <dl class="spec">
+            <div class="spec-row"><dt>片名</dt><dd>《老人与海：大海之上的不屈灵魂》</dd></div>
+            <div class="spec-row"><dt>结构</dt><dd>片头 3 秒画面淡入 + 正文 8 段 + 片尾 3 秒画面淡出</dd></div>
+            <div class="spec-row"><dt>旁白</dt><dd>中年男声，沉稳厚重；语速 140 字 / 分钟；总时长 68 秒</dd></div>
+            <div class="spec-row"><dt>画面</dt><dd>8 张 9:16 竖屏配图，逐段转为动态素材，剪辑为 16:9 成片</dd></div>
+            <div class="spec-row"><dt>字幕</dt><dd>思源黑体；画面底部居中，半透明黑色底条</dd></div>
+            <div class="spec-row"><dt>转场</dt><dd>淡入淡出，镜头之间缓慢叠化</dd></div>
+            <div class="spec-row"><dt>统一画风</dt><dd>古典油画质感，低饱和度，电影光影，写实海洋人物</dd></div>
+          </dl>
+
+          <div class="callout">
+            <strong>全片统一感的关键。</strong>
+            八段分镜的画面描述末尾，必须逐字沿用同一串风格后缀 ——「古典油画质感、低饱和度、电影光影、写实海洋人物」。
+            同时把老人的外形描述先写死、再复制进每一段提示词。这两条只要松掉一条，八张图就会散成八种画风。
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- 2.分镜板块：全部只有图片，不再出现视频播放器 -->
-    <h2>分镜</h2>
-    <div id="container"></div>
+  <!-- ================= 02 STORYBOARD ================= -->
+  <section id="storyboard" class="section">
+    <div class="wrap">
+      <span class="sec-num">02 / STORYBOARD</span>
+      <h2>八段分镜</h2>
+      <p class="sec-lead">从渔村到深海，再到空手而归的港湾 —— 八段画面，一条不断往下压、又始终不折断的线。</p>
 
-    <!-- 3.skill -->
-    <h2>Skill</h2>
-    <div class="block">
-        <ul style="padding-left:1.5rem;">
-            <li>AI文生图：生成分镜画面，油画质感，电影16:9画面</li>
-            <li>AI视频生成：根据图片+动态提示词生成短视频</li>
-            <li>AI配音：将旁白脚本生成人声音频，搭配视频使用</li>
-            <li>网页静态开发：HTML+JS，GitHub Pages部署在线展示</li>
-            <li>素材整理：整理提示词、脚本、图片、视频，结构化展示</li>
-        </ul>
+      <p class="flow">
+        渔村老人 <b>→</b> 独自出海 <b>→</b> 鱼线悸动 <b>→</b> 海上对峙 <b>→</b> 征服大鱼 <b>→</b> 鲨鱼突袭 <b>→</b> 归途残骨 <b>→</b> 不屈之心
+      </p>
+
+      <div class="cards">
+        <figure class="card">
+          <img src="assets/images/scene01.jpg" alt="分镜 01 渔村老人" loading="lazy">
+          <figcaption>
+            <span class="idx">01 ｜ 渔村老人</span>
+            <p>老渔夫桑地亚哥已经连续八十四天没有捕到鱼，村里年轻渔夫都嘲笑他运气差，只有小男孩马诺林始终信任、陪伴着他。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene02.jpg" alt="分镜 02 独自出海" loading="lazy">
+          <figcaption>
+            <span class="idx">02 ｜ 独自出海</span>
+            <p>第八十五天，老人独自驾小船驶向远海。他决心打破厄运，在深海寻找大鱼。大海辽阔又神秘，既是生存依靠，也暗藏危险。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene03.jpg" alt="分镜 03 鱼线悸动" loading="lazy">
+          <figcaption>
+            <span class="idx">03 ｜ 鱼线悸动</span>
+            <p>鱼钩被巨大的马林鱼咬住。这条鱼力量极强，拖着小船往深海漂流。老人双手紧紧拉住鱼线，手掌被鱼线割伤。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene04.jpg" alt="分镜 04 海上对峙" loading="lazy">
+          <figcaption>
+            <span class="idx">04 ｜ 海上对峙</span>
+            <p>老人和马林鱼僵持了整整两天两夜。没有食物，手上伤口不断流血，身体疲惫到极限，但他始终不肯放弃，心里默念：人不是为失败而生的。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene05.jpg" alt="分镜 05 征服大鱼" loading="lazy">
+          <figcaption>
+            <span class="idx">05 ｜ 征服大鱼</span>
+            <p>老人拼尽全部力气，终于刺中马林鱼。大鱼鲜血染红海水。他把大鱼绑在船边，准备返航，内心充满胜利的喜悦。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene06.jpg" alt="分镜 06 鲨鱼突袭" loading="lazy">
+          <figcaption>
+            <span class="idx">06 ｜ 鲨鱼突袭</span>
+            <p>血腥味引来了鲨鱼群。老人拿起鱼叉、船桨、短棍拼命驱赶鲨鱼。鲨鱼不断撕咬马林鱼的肉，大鱼一点点被啃食。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene07.jpg" alt="分镜 07 归途残骨" loading="lazy">
+          <figcaption>
+            <span class="idx">07 ｜ 归途残骨</span>
+            <p>当老人回到岸边，绑在船边的马林鱼只剩下巨大的骨架。他耗尽所有力气，拖着疲惫身体回到小屋沉沉睡去。村里人惊叹这巨大鱼骨。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="assets/images/scene08.jpg" alt="分镜 08 不屈之心" loading="lazy">
+          <figcaption>
+            <span class="idx">08 ｜ 不屈之心</span>
+            <p>虽然老人没有带回完整的大鱼，但他没有被打败。《老人与海》想告诉我们：真正的胜利不在于结果，而是永不屈服的勇气。</p>
+          </figcaption>
+        </figure>
+      </div>
     </div>
+  </section>
 
-    <!-- 4.说明 -->
-    <h2>说明</h2>
-    <div class="block">
-        <p>本页面用于展示名著改编AI视频创作作业。页面包含全部分镜素材、旁白、正向/反向提示词、动态镜头提示词。</p>
-        <br>
-        <p>规则：仅制作第一段镜头的视频，放在【作品】板块展示；其余镜头只保留静态参考图。所有素材全部为AI生成，用于课程作品展示。</p>
+  <!-- ================= 03 PROMPTS ================= -->
+  <section id="prompts" class="section">
+    <div class="wrap">
+      <span class="sec-num">03 / PROMPTS</span>
+      <h2>分镜提示词</h2>
+      <p class="sec-lead">每一段分镜的三组提示词 —— 画面正向、负面、动态镜头。点开查看。</p>
+
+      <div class="prompts">
+
+        <details class="pmt">
+          <summary><span class="t">01 ｜ 渔村老人</span><span class="d">海边老渔夫 · 清晨大海</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>油画质感，海边老渔夫，清晨大海，柔和自然光，电影宽屏 16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，畸形，丑陋，文字，水印</dd>
+            <dt>动态视频提示词</dt><dd>镜头缓慢向前推进，海面轻微波动，柔和运镜</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">02 ｜ 独自出海</span><span class="d">小木船 · 日出波光</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>写实油画，小木船漂浮在深蓝色大海，日出，海面波光，16:9 电影构图</dd>
+            <dt>负面提示词</dt><dd>卡通，扭曲，多余文字，水印，丑陋</dd>
+            <dt>动态视频提示词</dt><dd>镜头缓缓平移，海面微微起伏，缓慢移动</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">03 ｜ 鱼线悸动</span><span class="d">巨大马林鱼 · 水下拽线</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>海上，巨大马林鱼在水下，老渔夫奋力拽鱼线，自然光，油画质感，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，畸形，文字，水印，低画质</dd>
+            <dt>动态视频提示词</dt><dd>镜头轻微晃动，海水流动，鱼身缓慢摆动</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">04 ｜ 海上对峙</span><span class="d">黄昏海面 · 疲惫老人</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>黄昏海面，疲惫的老人，小船，巨大鱼影，暗沉柔和光影，油画，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，丑陋，文字，水印</dd>
+            <dt>动态视频提示词</dt><dd>缓慢推拉镜头，海面轻轻起伏</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">05 ｜ 征服大鱼</span><span class="d">血色海面 · 绑鱼返航</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>黄昏大海，小船，大鱼绑在船侧，海面泛血色，电影油画风格，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，畸形，文字水印</dd>
+            <dt>动态视频提示词</dt><dd>镜头缓慢环绕小船，海水流动</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">06 ｜ 鲨鱼突袭</span><span class="d">夜晚海面 · 鲨鱼围船</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>夜晚海面，鲨鱼围向小船，紧张暗调光影，油画质感，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，低画质，文字水印，畸形</dd>
+            <dt>动态视频提示词</dt><dd>镜头轻微抖动，海水涌动，鲨鱼游动</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">07 ｜ 归途残骨</span><span class="d">清晨海岸 · 巨大鱼骨</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>清晨海岸，小船，巨大鱼骨，疲惫老人，安静氛围，油画，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，文字水印，畸形</dd>
+            <dt>动态视频提示词</dt><dd>缓慢固定镜头，微风海浪</dd>
+          </dl></div>
+        </details>
+
+        <details class="pmt">
+          <summary><span class="t">08 ｜ 不屈之心</span><span class="d">海岸远景 · 日出大海</span></summary>
+          <div class="pmt-body"><dl>
+            <dt>画面正向提示词</dt><dd>海岸远景，日出，安静大海，氛围感油画，16:9</dd>
+            <dt>负面提示词</dt><dd>卡通，文字，水印，畸形</dd>
+            <dt>动态视频提示词</dt><dd>镜头缓慢抬升，海面缓缓波动</dd>
+          </dl></div>
+        </details>
+
+      </div>
     </div>
+  </section>
 
-    <!-- 5.制作流程 -->
-    <h2>制作流程</h2>
-    <div class="block">
-        <ol style="padding-left:1.5rem;">
-            <li>阅读《老人与海》原著，拆分8个剧情分镜，撰写每个镜头旁白脚本</li>
-            <li>为每个分镜编写AI绘图正向提示词、负面提示词、动态镜头提示词</li>
-            <li>AI绘图生成每一张分镜参考图</li>
-            <li>针对第一个分镜，使用图片+动态提示词生成AI短视频</li>
-            <li>编写网页代码，搭建作品展示页面，按板块组织内容</li>
-            <li>上传图片、视频素材到GitHub仓库，配置GitHub Pages在线发布</li>
-            <li>测试网页，检查图片、视频加载，调整页面排版</li>
+  <!-- ================= 04 PIPELINE ================= -->
+  <section id="pipeline" class="section">
+    <div class="wrap">
+      <span class="sec-num">04 / PIPELINE</span>
+      <h2>完整制作流程</h2>
+      <p class="sec-lead">从原著到成片，七个阶段，每一步都有可复核的落盘产物。</p>
+
+      <ol class="steps">
+        <li>
+          <div>
+            <div class="h">剧本</div>
+            <p>研读《老人与海》原著，梳理故事主线，拆分为 8 个连续剧情分镜，撰写每个镜头的旁白脚本。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">提示词</div>
+            <p>为每一段分镜编写 AI 绘图正向提示词、负面提示词与动态镜头提示词。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">配图</div>
+            <p>使用 AI 绘图工具，按八段画面描述生成 8 张统一油画风格的分镜参考图。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">生视频</div>
+            <p>以分镜静态图为底图，搭配动态镜头提示词，用 AI 生成动态视频素材，剪辑合成为 68 秒完整成片。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">写页面</div>
+            <p>编写网页 HTML 代码，划分作品、规格表、分镜、提示词、说明、制作流程、踩坑记录等板块。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">发布</div>
+            <p>在本地整理素材文件夹，将图片、视频按分镜归类，上传至 GitHub 仓库，开启 GitHub Pages。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="h">自检</div>
+            <p>在线访问网页测试，检查图片、视频加载，调整页面排版，修复路径、渲染等各类问题。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 05 NOTES ================= -->
+  <section id="notes" class="section">
+    <div class="wrap">
+      <span class="sec-num">05 / NOTES</span>
+      <h2>踩坑记录</h2>
+      <p class="sec-lead">都是实际跑通一遍之后才发现的，写在这里，下次不用再踩。</p>
+
+      <div class="notes">
+        <div class="note">
+          <div class="h">中文文件名 404</div>
+          <p>GitHub Pages 对中文文件名兼容性差，图片、视频用中文命名会加载失败。后续素材全部改为英文文件名。</p>
+        </div>
+        <div class="note">
+          <div class="h">素材路径写错</div>
+          <p>文件夹名称大小写、路径拼写错误，会直接导致图片视频无法显示。每次上传素材后必须核对资源路径。</p>
+        </div>
+        <div class="note">
+          <div class="h">视频加载缓慢</div>
+          <p>MP4 文件体积过大，上传仓库耗时久，网页打开后缓冲时间很长。需要控制视频时长与文件大小 —— 8K 原片经压缩后体积降到约 1/30。</p>
+        </div>
+        <div class="note">
+          <div class="h">页面排版不匹配</div>
+          <p>最初做成左右两栏布局，与参考网页风格不一致。后改为单栏卡片式布局，信息层级更清楚。</p>
+        </div>
+        <div class="note">
+          <div class="h">视频位置放错</div>
+          <p>视频一开始塞在分镜 01 的卡片里，作为「第一段素材」展示。后来改为提到页面顶部的「作品」板块，作为完整成片呈现。</p>
+        </div>
+        <div class="note">
+          <div class="h">分镜结构不全</div>
+          <p>最初页面只有分镜列表，缺少项目简介、规格表、制作流程等板块。补齐各模块后，整页才形成完整的叙事。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 06 ABOUT ================= -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <span class="sec-num">06 / ABOUT</span>
+      <h2>说明</h2>
+      <p class="sec-lead">本页面的用途与制作方式。</p>
+
+      <div class="about">
+        <p>
+          本页面用于展示名著改编 AI 视频创作作品，包含全部分镜素材、旁白、正向 / 负面提示词与动态镜头提示词。
+          所有素材均由 AI 生成，用于课程作品展示。
+        </p>
+        <div class="rule">
+          <strong>关于 Skill：</strong>本项目没有独立打包的 Skill 包，全部内容通过 AI 对话分步完成。
+        </div>
+        <ol>
+          <li>通过对话生成分镜旁白、AI 绘图提示词与视频动态提示词；</li>
+          <li>借助 AI 工具完成文生图、图片生成视频；</li>
+          <li>通过对话编写并迭代网页 HTML 代码，搭建展示页面。</li>
         </ol>
+      </div>
     </div>
+  </section>
 
-    <!-- 6.踩坑记录 -->
-    <h2>踩坑记录</h2>
-    <div class="block">
-        <ul style="padding-left:1.5rem;">
-            <li>GitHub Pages对中文文件名容易404，图片、视频推荐使用英文命名</li>
-            <li>MP4视频文件体积大，网页加载速度很慢，需要等待缓冲</li>
-            <li>网页排版：一开始做成左右两栏，和参考网页样式不一致，改为单栏卡片布局</li>
-            <li>视频位置：最开始视频放在分镜卡片内，调整到【作品】板块顶部展示</li>
-            <li>页面结构：一开始缺少作品、skill、制作流程等板块，补齐页面各个模块</li>
-        </ul>
-    </div>
+</main>
 
-    <script>
-        function escapeHtml(str) {
-            if(!str) return "";
-            return String(str)
-                .replaceAll('&','&amp;')
-                .replaceAll('<','&lt;')
-                .replaceAll('>','&gt;')
-                .replaceAll('"','&quot;')
-                .replaceAll("'","&#039;");
-        }
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="t">老人与海</div>
+    <p>名著介绍视频 · AI 创作作品 · 《老人与海：大海之上的不屈灵魂》</p>
+    <p style="margin-top:10px;">
+      <a href="assets/video/oldman-and-sea.mp4" download>下载成片</a>
+    </p>
+  </div>
+</footer>
 
-        const data = [
-            {
-                "title": "场景1：老渔夫桑地亚哥",
-                "img": "assets/oldmansea/scene1/场景1原图.jpg",
-                "script": "《老人与海》是海明威的经典中篇小说，主角是老渔夫桑地亚哥。他已经连续八十四天没有捕到鱼，村里年轻渔夫都嘲笑他运气差，只有小男孩马诺林一直信任、陪伴着他。",
-                "imagePrompt": "油画质感，海边老渔夫，清晨大海，柔和自然光，电影宽屏16:9",
-                "negativePrompt": "卡通，畸形，丑陋，文字，水印",
-                "motionPrompt": "镜头缓慢向前推进，海面轻微波动，柔和运镜"
-            },
-            {
-                "title": "场景2：独自出海",
-                "img": "assets/oldmansea/scene2/场景2原图.jpg",
-                "script": "第八十五天，老人独自驾小船驶向远海。他决心打破厄运，在深海寻找大鱼。大海辽阔又神秘，既是生存依靠，也暗藏危险。",
-                "imagePrompt": "写实油画，小木船漂浮在深蓝色大海，日出，海面波光，16:9电影构图",
-                "negativePrompt": "卡通，扭曲，多余文字，水印，丑陋",
-                "motionPrompt": "镜头缓缓平移，海面微微起伏，缓慢移动"
-            },
-            {
-                "title": "场景3：遇见大马林鱼",
-                "img": "assets/oldmansea/scene3/场景3原图.jpg",
-                "script": "鱼钩被巨大的马林鱼咬住。这条鱼力量极强，拖着小船往深海漂流。老人双手紧紧拉住鱼线，被大鱼拉扯，手掌被鱼线割伤。",
-                "imagePrompt": "海上，巨大马林鱼在水下，老渔夫奋力拽鱼线，自然光，油画质感，16:9",
-                "negativePrompt": "卡通，畸形，文字，水印，低画质",
-                "motionPrompt": "镜头轻微晃动，海水流动，鱼身缓慢摆动"
-            },
-            {
-                "title": "场景4：人与鱼的持久战",
-                "img": "assets/oldmansea/scene4/场景4原图.jpg",
-                "script": "老人和马林鱼僵持了整整两天两夜。他没有食物，手上伤口不断流血，身体疲惫到极限，但他始终不肯放弃，心里默念：人不是为失败而生的。",
-                "imagePrompt": "黄昏海面，疲惫的老人，小船，巨大鱼影，暗沉柔和光影，油画，16:9",
-                "negativePrompt": "卡通，丑陋，文字，水印",
-                "motionPrompt": "缓慢推拉镜头，海面轻轻起伏"
-            },
-            {
-                "title": "场景5：制服马林鱼",
-                "img": "assets/oldmansea/scene5/场景5原图.jpg",
-                "script": "老人拼尽全部力气，终于刺中马林鱼。大鱼鲜血染红海水。他把大鱼绑在船边，准备返航，内心充满胜利的喜悦。",
-                "imagePrompt": "黄昏大海，小船，大鱼绑在船侧，海面泛血色，电影油画风格，16:9",
-                "negativePrompt": "卡通，畸形，文字水印",
-                "motionPrompt": "镜头缓慢环绕小船，海水流动"
-            },
-            {
-                "title": "场景6：鲨鱼来袭",
-                "img": "assets/oldmansea/scene6/场景6原图.jpg",
-                "script": "血腥味引来了鲨鱼群。老人拿起鱼叉、船桨、短棍拼命驱赶鲨鱼。鲨鱼不断撕咬马林鱼的肉，大鱼一点点被啃食。",
-                "imagePrompt": "夜晚海面，鲨鱼围向小船，紧张暗调光影，油画质感，16:9",
-                "negativePrompt": "卡通，低画质，文字水印，畸形",
-                "motionPrompt": "镜头轻微抖动，海水涌动，鲨鱼游动"
-            },
-            {
-                "title": "场景7：回到港湾",
-                "img": "assets/oldmansea/scene7/场景7原图.jpg",
-                "script": "当老人回到岸边，绑在船边的马林鱼只剩下巨大的骨架。他耗尽所有力气，拖着疲惫身体回到小屋沉沉睡去。村里人惊叹这巨大鱼骨。",
-                "imagePrompt": "清晨海岸，小船，巨大鱼骨，疲惫老人，安静氛围，油画，16:9",
-                "negativePrompt": "卡通，文字水印，畸形",
-                "motionPrompt": "缓慢固定镜头，微风海浪"
-            },
-            {
-                "title": "场景8：主题总结",
-                "img": "assets/oldmansea/scene8/场景8原图.jpg",
-                "script": "虽然老人没有带回完整的大鱼，但他没有被打败。《老人与海》想告诉我们：真正的胜利不在于结果，而是永不屈服的勇气。一个人可以被毁灭，但不能被打败。",
-                "imagePrompt": "海岸远景，日出，安静大海，氛围感油画，16:9",
-                "negativePrompt": "卡通，文字，水印，畸形",
-                "motionPrompt": "镜头缓慢抬升，海面缓缓波动"
-            }
-        ];
-
-        const wrap = document.getElementById('container');
-        data.forEach(scene=>{
-            const card = document.createElement('div');
-            card.className = 'scene-card';
-
-            // 分镜卡片只有图片，没有任何视频
-            let mediaHtml = `<div class="media-area"><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
-
-            card.innerHTML = `
-                <div class="scene-title">${escapeHtml(scene.title)}</div>
-                ${mediaHtml}
-                <div class="text-block">
-                    <label>旁白脚本</label>
-                    <pre>${escapeHtml(scene.script)}</pre>
-                </div>
-                <div class="text-block">
-                    <label>画面正向提示词</label>
-                    <pre>${escapeHtml(scene.imagePrompt)}</pre>
-                </div>
-                <div class="text-block">
-                    <label>负面提示词</label>
-                    <pre>${escapeHtml(scene.negativePrompt)}</pre>
-                </div>
-                <div class="text-block">
-                    <label>动态视频提示词</label>
-                    <pre>${escapeHtml(scene.motionPrompt)}</pre>
-                </div>
-            `;
-            wrap.appendChild(card);
-        })
-    </script>
 </body>
 </html>
-
- 
-           
