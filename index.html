@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老人与海 名著讲解视频项目</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;}
+        body{max-width:1200px;margin:0 auto;padding:2rem;background:#f5f5f5;}
+        h1{text-align:center;margin-bottom:2rem;color:#222;}
+        .scene-card{background:#fff;padding:1.5rem;border-radius:12px;margin-bottom:2rem;box-shadow:0 2px 8px #00000015;}
+        .scene-title{font-size:1.3rem;font-weight:bold;margin-bottom:1rem;}
+        .media-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+        .media-wrap.one-col{grid-template-columns:1fr;}
+        .media-wrap img,.media-wrap video{width:100%;border-radius:8px;object-fit:cover;}
+        .text-block{margin:0.8rem 0;}
+        .text-block label{font-weight:bold;color:#444;display:block;margin-bottom:0.3rem;}
+        pre{white-space:pre-wrap;background:#f1f1f1;padding:0.8rem;border-radius:6px;}
+    </style>
+</head>
+<body>
+    <h1>《老人与海》名著讲解</h1>
+    <div id="container"></div>
+
+    <script>
+        fetch("./config.json")
+        .then(res=>res.json())
+        .then(data=>{
+            const wrap = document.getElementById('container');
+            data.forEach(scene=>{
+                const card = document.createElement('div');
+                card.className = 'scene-card';
+                // 判断是否有video，动态生成媒体区域
+                let mediaHtml = `<div><img src="${scene.img}" alt="分镜原图"></div>`;
+                if(scene.video){
+                    mediaHtml += `<div><video controls src="${scene.video}"></video></div>`;
+                }
+                const colClass = scene.video ? "media-wrap" : "media-wrap one-col";
+                card.innerHTML = `
+                    <div class="scene-title">${scene.title}</div>
+                    <div class="${colClass}">
+                        ${mediaHtml}
+                    </div>
+                    <div class="text-block">
+                        <label>旁白脚本</label>
+                        <pre>${scene.script}</pre>
+                    </div>
+                    <div class="text-block">
+                        <label>画面正向提示词</label>
+                        <pre>${scene.imagePrompt}</pre>
+                    </div>
+                    <div class="text-block">
+                        <label>负面提示词</label>
+                        <pre>${scene.negativePrompt}</pre>
+                    </div>
+                    <div class="text-block">
+                        <label>动态视频提示词</label>
+                        <pre>${scene.motionPrompt}</pre>
+                    </div>
+                `;
+                wrap.appendChild(card);
+            })
+        })
+    </script>
+</body>
+</html>
