@@ -6,16 +6,15 @@
     <title>老人与海 名著讲解视频项目</title>
     <style>
         *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;}
-        body{max-width:1200px;margin:0 auto;padding:2rem;background:#f5f5f5;}
-        h1{text-align:center;margin-bottom:2rem;color:#222;}
-        .scene-card{background:#fff;padding:1.5rem;border-radius:12px;margin-bottom:2rem;box-shadow:0 2px 8px #00000015;}
+        body{max-width:900px;margin:0 auto;padding:2rem;background:#f5f5f5;}
+        h1{text-align:center;margin-bottom:2.5rem;color:#222;}
+        .scene-card{background:#fff;padding:1.6rem;border-radius:12px;margin-bottom:2.2rem;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
         .scene-title{font-size:1.3rem;font-weight:bold;margin-bottom:1rem;}
-        .media-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
-        .media-wrap.one-col{grid-template-columns:1fr;}
-        .media-wrap img,.media-wrap video{width:100%;border-radius:8px;object-fit:cover;}
-        .text-block{margin:0.8rem 0;}
-        .text-block label{font-weight:bold;color:#444;display:block;margin-bottom:0.3rem;}
-        pre{white-space:pre-wrap;background:#f1f1f1;padding:0.8rem;border-radius:6px;}
+        .media-area{width:100%;margin-bottom:1rem;}
+        .media-area img,.media-area video{width:100%;border-radius:8px;display:block;}
+        .text-block{margin:1rem 0;}
+        .text-block label{font-weight:bold;color:#444;display:block;margin-bottom:0.4rem;}
+        pre{white-space:pre-wrap;background:#f1f1f1;padding:0.9rem;border-radius:6px;line-height:1.6;}
     </style>
 </head>
 <body>
@@ -32,7 +31,8 @@
                 .replaceAll('"','&quot;')
                 .replaceAll("'","&#039;");
         }
-        // 全部场景内置在这里，不需要外部config.json
+
+        // 【固定】仅场景1配置video路径，其他全部video为空，不会渲染播放器
         const data = [
             {
                 "title": "场景1：老渔夫桑地亚哥",
@@ -46,7 +46,7 @@
             {
                 "title": "场景2：独自出海",
                 "img": "assets/oldmansea/scene2/场景2原图.jpg",
-                "video": "assets/oldmansea/scene2/场景2视频.mp4",
+                "video": "",
                 "script": "第八十五天，老人独自驾小船驶向远海。他决心打破厄运，在深海寻找大鱼。大海辽阔又神秘，既是生存依靠，也暗藏危险。",
                 "imagePrompt": "写实油画，小木船漂浮在深蓝色大海，日出，海面波光，16:9电影构图",
                 "negativePrompt": "卡通，扭曲，多余文字，水印，丑陋",
@@ -55,7 +55,7 @@
             {
                 "title": "场景3：遇见大马林鱼",
                 "img": "assets/oldmansea/scene3/场景3原图.jpg",
-                "video": "assets/oldmansea/scene3/场景3视频.mp4",
+                "video": "",
                 "script": "鱼钩被巨大的马林鱼咬住。这条鱼力量极强，拖着小船往深海漂流。老人双手紧紧拉住鱼线，被大鱼拉扯，手掌被鱼线割伤。",
                 "imagePrompt": "海上，巨大马林鱼在水下，老渔夫奋力拽鱼线，自然光，油画质感，16:9",
                 "negativePrompt": "卡通，畸形，文字，水印，低画质",
@@ -64,7 +64,7 @@
             {
                 "title": "场景4：人与鱼的持久战",
                 "img": "assets/oldmansea/scene4/场景4原图.jpg",
-                "video": "assets/oldmansea/scene4/场景4视频.mp4",
+                "video": "",
                 "script": "老人和马林鱼僵持了整整两天两夜。他没有食物，手上伤口不断流血，身体疲惫到极限，但他始终不肯放弃，心里默念：人不是为失败而生的。",
                 "imagePrompt": "黄昏海面，疲惫的老人，小船，巨大鱼影，暗沉柔和光影，油画，16:9",
                 "negativePrompt": "卡通，丑陋，文字，水印",
@@ -73,7 +73,7 @@
             {
                 "title": "场景5：制服马林鱼",
                 "img": "assets/oldmansea/scene5/场景5原图.jpg",
-                "video": "assets/oldmansea/scene5/场景5视频.mp4",
+                "video": "",
                 "script": "老人拼尽全部力气，终于刺中马林鱼。大鱼鲜血染红海水。他把大鱼绑在船边，准备返航，内心充满胜利的喜悦。",
                 "imagePrompt": "黄昏大海，小船，大鱼绑在船侧，海面泛血色，电影油画风格，16:9",
                 "negativePrompt": "卡通，畸形，文字水印",
@@ -82,7 +82,7 @@
             {
                 "title": "场景6：鲨鱼来袭",
                 "img": "assets/oldmansea/scene6/场景6原图.jpg",
-                "video": "assets/oldmansea/scene6/场景6视频.mp4",
+                "video": "",
                 "script": "血腥味引来了鲨鱼群。老人拿起鱼叉、船桨、短棍拼命驱赶鲨鱼。鲨鱼不断撕咬马林鱼的肉，大鱼一点点被啃食。",
                 "imagePrompt": "夜晚海面，鲨鱼围向小船，紧张暗调光影，油画质感，16:9",
                 "negativePrompt": "卡通，低画质，文字水印，畸形",
@@ -91,7 +91,7 @@
             {
                 "title": "场景7：回到港湾",
                 "img": "assets/oldmansea/scene7/场景7原图.jpg",
-                "video": "assets/oldmansea/scene7/场景7视频.mp4",
+                "video": "",
                 "script": "当老人回到岸边，绑在船边的马林鱼只剩下巨大的骨架。他耗尽所有力气，拖着疲惫身体回到小屋沉沉睡去。村里人惊叹这巨大鱼骨。",
                 "imagePrompt": "清晨海岸，小船，巨大鱼骨，疲惫老人，安静氛围，油画，16:9",
                 "negativePrompt": "卡通，文字水印，畸形",
@@ -100,7 +100,7 @@
             {
                 "title": "场景8：主题总结",
                 "img": "assets/oldmansea/scene8/场景8原图.jpg",
-                "video": "assets/oldmansea/scene8/场景8视频.mp4",
+                "video": "",
                 "script": "虽然老人没有带回完整的大鱼，但他没有被打败。《老人与海》想告诉我们：真正的胜利不在于结果，而是永不屈服的勇气。一个人可以被毁灭，但不能被打败。",
                 "imagePrompt": "海岸远景，日出，安静大海，氛围感油画，16:9",
                 "negativePrompt": "卡通，文字，水印，畸形",
@@ -112,16 +112,22 @@
         data.forEach(scene=>{
             const card = document.createElement('div');
             card.className = 'scene-card';
-            let mediaHtml = `<div><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
+
+            let mediaHtml = `<div class="media-area"><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
+            // 只有video字段不为空，才渲染视频播放器，放在图片下方
             if(scene.video){
-                mediaHtml += `<div><video controls src="${escapeHtml(scene.video)}"></video></div>`;
+                mediaHtml += `
+                <div class="media-area">
+                    <video controls width="100%">
+                        <source src="${escapeHtml(scene.video)}" type="video/mp4">
+                        浏览器不支持该视频
+                    </video>
+                </div>`;
             }
-            const colClass = scene.video ? "media-wrap" : "media-wrap one-col";
+
             card.innerHTML = `
                 <div class="scene-title">${escapeHtml(scene.title)}</div>
-                <div class="${colClass}">
-                    ${mediaHtml}
-                </div>
+                ${mediaHtml}
                 <div class="text-block">
                     <label>旁白脚本</label>
                     <pre>${escapeHtml(scene.script)}</pre>
@@ -144,4 +150,3 @@
     </script>
 </body>
 </html>
-
