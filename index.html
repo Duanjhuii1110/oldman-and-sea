@@ -23,44 +23,125 @@
     <div id="container"></div>
 
     <script>
-        fetch("./config.json")
-        .then(res=>res.json())
-        .then(data=>{
-            const wrap = document.getElementById('container');
-            data.forEach(scene=>{
-                const card = document.createElement('div');
-                card.className = 'scene-card';
-                // 判断是否有video，动态生成媒体区域
-                let mediaHtml = `<div><img src="${scene.img}" alt="分镜原图"></div>`;
-                if(scene.video){
-                    mediaHtml += `<div><video controls src="${scene.video}"></video></div>`;
-                }
-                const colClass = scene.video ? "media-wrap" : "media-wrap one-col";
-                card.innerHTML = `
-                    <div class="scene-title">${scene.title}</div>
-                    <div class="${colClass}">
-                        ${mediaHtml}
-                    </div>
-                    <div class="text-block">
-                        <label>旁白脚本</label>
-                        <pre>${scene.script}</pre>
-                    </div>
-                    <div class="text-block">
-                        <label>画面正向提示词</label>
-                        <pre>${scene.imagePrompt}</pre>
-                    </div>
-                    <div class="text-block">
-                        <label>负面提示词</label>
-                        <pre>${scene.negativePrompt}</pre>
-                    </div>
-                    <div class="text-block">
-                        <label>动态视频提示词</label>
-                        <pre>${scene.motionPrompt}</pre>
-                    </div>
-                `;
-                wrap.appendChild(card);
-            })
+        function escapeHtml(str) {
+            if(!str) return "";
+            return String(str)
+                .replaceAll('&','&amp;')
+                .replaceAll('<','&lt;')
+                .replaceAll('>','&gt;')
+                .replaceAll('"','&quot;')
+                .replaceAll("'","&#039;");
+        }
+        // 全部场景内置在这里，不需要外部config.json
+        const data = [
+            {
+                "title": "场景1：老渔夫桑地亚哥",
+                "img": "assets/oldmansea/scene1/场景1原图.jpg",
+                "video": "assets/oldmansea/scene1/场景1视频.mp4",
+                "script": "《老人与海》是海明威的经典中篇小说，主角是老渔夫桑地亚哥。他已经连续八十四天没有捕到鱼，村里年轻渔夫都嘲笑他运气差，只有小男孩马诺林一直信任、陪伴着他。",
+                "imagePrompt": "油画质感，海边老渔夫，清晨大海，柔和自然光，电影宽屏16:9",
+                "negativePrompt": "卡通，畸形，丑陋，文字，水印",
+                "motionPrompt": "镜头缓慢向前推进，海面轻微波动，柔和运镜"
+            },
+            {
+                "title": "场景2：独自出海",
+                "img": "assets/oldmansea/scene2/场景2原图.jpg",
+                "video": "assets/oldmansea/scene2/场景2视频.mp4",
+                "script": "第八十五天，老人独自驾小船驶向远海。他决心打破厄运，在深海寻找大鱼。大海辽阔又神秘，既是生存依靠，也暗藏危险。",
+                "imagePrompt": "写实油画，小木船漂浮在深蓝色大海，日出，海面波光，16:9电影构图",
+                "negativePrompt": "卡通，扭曲，多余文字，水印，丑陋",
+                "motionPrompt": "镜头缓缓平移，海面微微起伏，缓慢移动"
+            },
+            {
+                "title": "场景3：遇见大马林鱼",
+                "img": "assets/oldmansea/scene3/场景3原图.jpg",
+                "video": "assets/oldmansea/scene3/场景3视频.mp4",
+                "script": "鱼钩被巨大的马林鱼咬住。这条鱼力量极强，拖着小船往深海漂流。老人双手紧紧拉住鱼线，被大鱼拉扯，手掌被鱼线割伤。",
+                "imagePrompt": "海上，巨大马林鱼在水下，老渔夫奋力拽鱼线，自然光，油画质感，16:9",
+                "negativePrompt": "卡通，畸形，文字，水印，低画质",
+                "motionPrompt": "镜头轻微晃动，海水流动，鱼身缓慢摆动"
+            },
+            {
+                "title": "场景4：人与鱼的持久战",
+                "img": "assets/oldmansea/scene4/场景4原图.jpg",
+                "video": "assets/oldmansea/scene4/场景4视频.mp4",
+                "script": "老人和马林鱼僵持了整整两天两夜。他没有食物，手上伤口不断流血，身体疲惫到极限，但他始终不肯放弃，心里默念：人不是为失败而生的。",
+                "imagePrompt": "黄昏海面，疲惫的老人，小船，巨大鱼影，暗沉柔和光影，油画，16:9",
+                "negativePrompt": "卡通，丑陋，文字，水印",
+                "motionPrompt": "缓慢推拉镜头，海面轻轻起伏"
+            },
+            {
+                "title": "场景5：制服马林鱼",
+                "img": "assets/oldmansea/scene5/场景5原图.jpg",
+                "video": "assets/oldmansea/scene5/场景5视频.mp4",
+                "script": "老人拼尽全部力气，终于刺中马林鱼。大鱼鲜血染红海水。他把大鱼绑在船边，准备返航，内心充满胜利的喜悦。",
+                "imagePrompt": "黄昏大海，小船，大鱼绑在船侧，海面泛血色，电影油画风格，16:9",
+                "negativePrompt": "卡通，畸形，文字水印",
+                "motionPrompt": "镜头缓慢环绕小船，海水流动"
+            },
+            {
+                "title": "场景6：鲨鱼来袭",
+                "img": "assets/oldmansea/scene6/场景6原图.jpg",
+                "video": "assets/oldmansea/scene6/场景6视频.mp4",
+                "script": "血腥味引来了鲨鱼群。老人拿起鱼叉、船桨、短棍拼命驱赶鲨鱼。鲨鱼不断撕咬马林鱼的肉，大鱼一点点被啃食。",
+                "imagePrompt": "夜晚海面，鲨鱼围向小船，紧张暗调光影，油画质感，16:9",
+                "negativePrompt": "卡通，低画质，文字水印，畸形",
+                "motionPrompt": "镜头轻微抖动，海水涌动，鲨鱼游动"
+            },
+            {
+                "title": "场景7：回到港湾",
+                "img": "assets/oldmansea/scene7/场景7原图.jpg",
+                "video": "assets/oldmansea/scene7/场景7视频.mp4",
+                "script": "当老人回到岸边，绑在船边的马林鱼只剩下巨大的骨架。他耗尽所有力气，拖着疲惫身体回到小屋沉沉睡去。村里人惊叹这巨大鱼骨。",
+                "imagePrompt": "清晨海岸，小船，巨大鱼骨，疲惫老人，安静氛围，油画，16:9",
+                "negativePrompt": "卡通，文字水印，畸形",
+                "motionPrompt": "缓慢固定镜头，微风海浪"
+            },
+            {
+                "title": "场景8：主题总结",
+                "img": "assets/oldmansea/scene8/场景8原图.jpg",
+                "video": "assets/oldmansea/scene8/场景8视频.mp4",
+                "script": "虽然老人没有带回完整的大鱼，但他没有被打败。《老人与海》想告诉我们：真正的胜利不在于结果，而是永不屈服的勇气。一个人可以被毁灭，但不能被打败。",
+                "imagePrompt": "海岸远景，日出，安静大海，氛围感油画，16:9",
+                "negativePrompt": "卡通，文字，水印，畸形",
+                "motionPrompt": "镜头缓慢抬升，海面缓缓波动"
+            }
+        ];
+
+        const wrap = document.getElementById('container');
+        data.forEach(scene=>{
+            const card = document.createElement('div');
+            card.className = 'scene-card';
+            let mediaHtml = `<div><img src="${escapeHtml(scene.img)}" alt="分镜原图"></div>`;
+            if(scene.video){
+                mediaHtml += `<div><video controls src="${escapeHtml(scene.video)}"></video></div>`;
+            }
+            const colClass = scene.video ? "media-wrap" : "media-wrap one-col";
+            card.innerHTML = `
+                <div class="scene-title">${escapeHtml(scene.title)}</div>
+                <div class="${colClass}">
+                    ${mediaHtml}
+                </div>
+                <div class="text-block">
+                    <label>旁白脚本</label>
+                    <pre>${escapeHtml(scene.script)}</pre>
+                </div>
+                <div class="text-block">
+                    <label>画面正向提示词</label>
+                    <pre>${escapeHtml(scene.imagePrompt)}</pre>
+                </div>
+                <div class="text-block">
+                    <label>负面提示词</label>
+                    <pre>${escapeHtml(scene.negativePrompt)}</pre>
+                </div>
+                <div class="text-block">
+                    <label>动态视频提示词</label>
+                    <pre>${escapeHtml(scene.motionPrompt)}</pre>
+                </div>
+            `;
+            wrap.appendChild(card);
         })
     </script>
 </body>
 </html>
+
